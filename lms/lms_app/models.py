@@ -56,16 +56,16 @@ class DisciplinaOfertada(models.Model):
             if len(disciplina_invalida) > 0:
                 raise Exception('disciplina invalida')
 
-            turma_dobrado = DisciplinaOfertada.objects.filter(turma = self.turma)
-            if len(turma_dobrado)>0:
-                ano_dobrado = DisciplinaOfertada.objects.filter(ano = self.ano)
-                if len(ano_dobrado)>0:
-                    semestre_dobrado = DisciplinaOfertada.objects.filter(semestre = self.semestre)
-                    if len(semestre_dobrado)>0:
-                        professor_dobrado = DisciplinaOfertada.objects.filter(professor = self.professor)
-                        if len(professor_dobrado)>0:
-                            disciplina_dobrado = DisciplinaOfertada.objects.filter(disciplina = self.disciplina)
-                            if len(disciplina_dobrado)>0:
-                                 raise Exception('disciplina dobrada')    
+        turma_dobrado = DisciplinaOfertada.objects.filter(turma = self.turma)
+        if len(turma_dobrado)>0:
+            ano_dobrado = DisciplinaOfertada.objects.filter(ano = self.ano)
+            if len(ano_dobrado)>0:
+                semestre_dobrado = DisciplinaOfertada.objects.filter(semestre = self.semestre)
+                if len(semestre_dobrado)>0:
+                    professor_dobrado = DisciplinaOfertada.objects.filter(professor = self.professor)
+                    if len(professor_dobrado)>0:
+                        disciplina_dobrado = DisciplinaOfertada.objects.filter(disciplina = self.disciplina)
+                        if len(disciplina_dobrado)>0:
+                             raise Exception('disciplina dobrada')    
 
         super(DisciplinaOfertada, self).save()
