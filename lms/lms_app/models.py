@@ -67,6 +67,11 @@ class DisciplinaOfertada(models.Model):
                         if len(professor_dobrado)>0:
                             disciplina_dobrado = DisciplinaOfertada.objects.filter(disciplina = self.disciplina)
                             if len(disciplina_dobrado)>0:
-                                 raise Exception('disciplina dobrada')    
+                                 raise Exception('disciplina dobrada')
+        
+        
+        professor_encontrado = Professor.objects.filter(id = self.professor)
+            if professor_encontrado != self.professor:
+                raise Exception('id incorreto')
 
         super(DisciplinaOfertada, self).save()
