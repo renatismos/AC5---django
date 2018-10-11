@@ -55,7 +55,7 @@ class DisciplinaOfertada(models.Model):
         if self.curso not in cursovalido:
             raise Exception('disciplina invalida')
             
-        disciplina_invalida = Disciplina.objects.filter(curso = self.curso)
+        disciplina_invalida = DisciplinaOfertada.objects.filter(curso = self.curso)
         if len(disciplina_invalida) > 0:
             turma_dobrado = DisciplinaOfertada.objects.filter(turma = self.turma)
             if len(turma_dobrado)>0:
