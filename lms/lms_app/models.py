@@ -2,6 +2,10 @@ from django.db import models
 
 # Create your models here.
 
+from django.db import models
+
+# Create your models here.
+
 class Professor(models.Model):
     def __str__(self):
         return 'Nome: ' + self.nome + ' E-mail: ' + self.email
@@ -46,15 +50,14 @@ class DisciplinaOfertada(models.Model):
     turma = models.TextField(max_length=5)
     ano = models.IntegerField() #um inteiro, representa um ano
     semestre = models.IntegerField() #um inteiro, 1 para primeiro sem e 2 para segundo
-    professor = models.IntegerField() #id de um professor valido
+    professor = models.IntegerField() #id de um professor validoe   
     disciplina = models.IntegerField() #id de uma disciplina valida
 
     def save(self):
-        
         cursovalido = ['ADS', 'SI', 'BD']
         if self.curso not in cursovalido:
             raise Exception('disciplina invalida')
-            
+                
         disciplina_invalida = DisciplinaOfertada.objects.filter(curso = self.curso)
         if len(disciplina_invalida) > 0:
             turma_dobrado = DisciplinaOfertada.objects.filter(turma = self.turma)
@@ -67,11 +70,13 @@ class DisciplinaOfertada(models.Model):
                         if len(professor_dobrado)>0:
                             disciplina_dobrado = DisciplinaOfertada.objects.filter(disciplina = self.disciplina)
                             if len(disciplina_dobrado)>0:
-                                 raise Exception('disciplina dobrada')
-        
-        
-        professor_encontrado = Professor.objects.filter(id = self.professor)
-            if professor_encontrado != self.professor:
-                raise Exception('id incorreto')
+                                raise Exception('disciplina dobrada')
 
+        idDis = Disciplina.objects.filter(id=self.disciplina)
+        idProf = Professor.objects.filter(id=self.professor)
+        if len(idDis) < 1:
+            raise Exception('Id Disciplina não existente')
+        if len (idProf) < 1:
+            raise Exception('Id Professor não existente')
+    
         super(DisciplinaOfertada, self).save()
